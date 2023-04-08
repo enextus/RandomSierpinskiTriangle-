@@ -1,20 +1,23 @@
 package org.serpinskitriangle;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class AnimatedSierpinskiTriangleThree extends JPanel {
 
-    private static final int MAX_DEPTH = 6;
+    @NotNull
+    private static final int MAX_DEPTH = 5; // should be > 2
     private static final Color[] COLOR_MAP = {Color.BLUE, Color.RED, Color.GREEN, Color.WHITE, Color.YELLOW, Color.MAGENTA, Color.ORANGE};
     private static final Color[] COLOR_MAP_TWO = {Color.BLACK};
     private static final int DELAY = 700;
-    private static final int DELAY_SHORT = 200;
+    private static final int DELAY_SHORT = 0;
     private static final int WIDTH = 1000;
     private static final int HEIGHT = 1000;
-    private static final int FONT_SIZE = 22;
+    private static final int FONT_SIZE = 32;
+    private static final int DOT_RADIUS = 3;
     private final ArrayList<Point[]> triangles = new ArrayList<>();
     private int triangleCount = 1;
     private final JLabel countLabel = new JLabel("Triangles: 1");
@@ -80,7 +83,7 @@ public class AnimatedSierpinskiTriangleThree extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        int dotRadius = 4; // Radius of the bold dot (you can adjust this value)
+        int dotRadius = DOT_RADIUS; // Radius of the bold dot (you can adjust this value)
 
         for (int i = 0; i < triangles.size(); i++) {
             g.setColor(COLOR_MAP_TWO[i % COLOR_MAP_TWO.length]);
@@ -88,6 +91,7 @@ public class AnimatedSierpinskiTriangleThree extends JPanel {
             for (Point point : triangles.get(i)) {
                 int x = (int) point.getX() - dotRadius / 2;
                 int y = (int) point.getY() - dotRadius / 2;
+
                 g.fillOval(x, y, dotRadius, dotRadius);
             }
 
@@ -109,13 +113,9 @@ public class AnimatedSierpinskiTriangleThree extends JPanel {
 
             // add new triangle in the frame
             triangles.add(triangle1);
-
             takeDelay(DELAY_SHORT);
-
             triangles.add(triangle2);
-
             takeDelay(DELAY_SHORT);
-
             triangles.add(triangle3);
 
             triangleCount += 3;
