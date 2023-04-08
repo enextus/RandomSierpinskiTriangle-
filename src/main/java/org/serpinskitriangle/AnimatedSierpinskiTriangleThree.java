@@ -6,21 +6,35 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+import java.awt.Color;
+
 public class AnimatedSierpinskiTriangleThree extends JPanel {
 
     @NotNull
-    private static final int MAX_DEPTH = 5; // should be > 2
-    private static final Color[] COLOR_MAP = {Color.BLUE, Color.RED, Color.GREEN, Color.WHITE, Color.YELLOW, Color.MAGENTA, Color.ORANGE};
+    private static final int MAX_DEPTH = 5; // should be > 4
+//    private static final Color[] COLOR_MAP = {Color.BLUE, Color.RED, Color.GREEN, Color.WHITE, Color.YELLOW, Color.MAGENTA, Color.ORANGE};
+
+    private static final Color[] COLOR_MAP = {
+            new Color(176, 224, 230), // Pastel blue
+            new Color(255, 182, 193), // Pastel red
+            new Color(152, 251, 152), // Pastel green
+            new Color(255, 239, 213), // Pastel white (peach)
+            new Color(255, 255, 224), // Pastel yellow
+            new Color(216, 191, 216), // Pastel magenta
+            new Color(255, 228, 181)  // Pastel orange
+    };
+
     private static final Color[] COLOR_MAP_TWO = {Color.BLACK};
     private static final int DELAY = 700;
     private static final int DELAY_SHORT = 0;
     private static final int WIDTH = 1000;
     private static final int HEIGHT = 1000;
-    private static final int FONT_SIZE = 32;
+    private static final int FONT_SIZE = 24;
     private static final int DOT_RADIUS = 3;
     private final ArrayList<Point[]> triangles = new ArrayList<>();
     private int triangleCount = 1;
     private final JLabel countLabel = new JLabel("Triangles: 1");
+    private final JLabel countLabel2 = new JLabel("Triangles: 1");
 
     public static void main(String[] args) {
 
@@ -39,11 +53,15 @@ public class AnimatedSierpinskiTriangleThree extends JPanel {
 
     public AnimatedSierpinskiTriangleThree() {
         Font currentFont = countLabel.getFont(); // Get the current font
+        Font currentFont2 = countLabel2.getFont(); // Get the current font
         Font newFont = currentFont.deriveFont((float) FONT_SIZE); // Создайте новый шрифт на основе текущего шрифта с новым размером
+        Font newFont2 = currentFont2.deriveFont((float) FONT_SIZE); // Создайте новый шрифт на основе текущего шрифта с новым размером
         countLabel.setFont(newFont); // Set the new font for countLabel
+        countLabel2.setFont(newFont2); // Set the new font for countLabel
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setLayout(new BorderLayout());
-        add(countLabel, BorderLayout.NORTH);
+        add(countLabel, BorderLayout.SOUTH);
+        add(countLabel2, BorderLayout.NORTH);
     }
 
     public void generateTriangles() {
@@ -119,6 +137,8 @@ public class AnimatedSierpinskiTriangleThree extends JPanel {
             triangles.add(triangle3);
 
             triangleCount += 3;
+            countLabel2.setText("\"Треугольник Серпинского\"");
+            repaint();
             countLabel.setText("Triangles: " + triangleCount);
             repaint();
 
